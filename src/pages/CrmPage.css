@@ -1,0 +1,98 @@
+/*
+ * pages/CrmPage.css
+ */
+
+.crm-header {
+  padding-top: calc(var(--navbar-height) + var(--space-12));
+  padding-bottom: var(--space-12);
+  text-align: center;
+  background: linear-gradient(135deg, var(--color-bg-light) 0%, #ede6f7 100%);
+}
+
+.crm-header h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  margin-bottom: var(--space-4);
+}
+
+.crm-header p {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.crm-body {
+  background-color: var(--color-bg);
+}
+
+.crm-intro {
+  max-width: 720px;
+  margin: 0 auto var(--space-16);
+  text-align: center;
+}
+
+.crm-intro p {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  line-height: 1.8;
+}
+
+.crm-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-8);
+}
+
+.crm-feature-card {
+  padding: var(--space-8);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  transition: var(--transition-base);
+}
+
+.crm-feature-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+  border-color: var(--color-primary-light);
+}
+
+.crm-feature-card__icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-4);
+}
+
+.crm-feature-card h3 {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+}
+
+.crm-feature-card p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.75;
+}
+
+.crm-cta {
+  text-align: center;
+  margin-top: var(--space-16);
+  padding: var(--space-12) var(--space-8);
+  background: var(--color-primary-light);
+  border-radius: var(--radius-xl);
+}
+
+.crm-cta h2 { margin-bottom: var(--space-4); }
+.crm-cta p {
+  color: var(--color-text-muted);
+  max-width: 500px;
+  margin: 0 auto var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .crm-features-grid { grid-template-columns: 1fr; }
+}
+@media (min-width: 600px) and (max-width: 900px) {
+  .crm-features-grid { grid-template-columns: 1fr 1fr; }
+}

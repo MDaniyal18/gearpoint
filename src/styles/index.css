@@ -1,0 +1,13 @@
+/*
+ * styles/index.css
+ * Master CSS entry — imports all style modules in dependency order
+ */
+
+/* 1. Design tokens (must be first — everything depends on these variables) */
+@import './variables.css';
+
+/* 2. Global reset + base elements */
+@import './global.css';
+
+/* 3. Shared utility classes */
+@import './utilities.css';
