@@ -14,6 +14,16 @@ const Navbar = () => {
 
   const close = () => setOpen(false);
 
+  // Prevent scroll when mobile menu is open
+  React.useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
   return (
     <>
       <header className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
@@ -63,8 +73,20 @@ const Navbar = () => {
         </div>
       </header>
 
+      {/* Mobile menu overlay */}
+      <div 
+        className={`navbar__overlay${open ? ' open' : ''}`} 
+        onClick={close}
+        aria-hidden="true"
+      />
+
       {/* Mobile menu */}
       <nav className={`navbar__mobile${open ? ' open' : ''}`} aria-label="Mobile navigation">
+        <div className="navbar__mobile-header" style={{ marginBottom: 'var(--space-8)' }}>
+          <span className="navbar__logo-text" style={{ fontSize: 'var(--text-xl)' }}>
+            Gear<span>Point</span>
+          </span>
+        </div>
         {NAV_LINKS.map(link => (
           <NavLink
             key={link.href}
@@ -76,8 +98,8 @@ const Navbar = () => {
             {link.label}
           </NavLink>
         ))}
-        <Link to="/contact" className="btn btn--primary" onClick={close}>
-          Schedule Consultation
+        <Link to="/contact" className="btn btn--primary btn--lg" onClick={close}>
+          Consultation
         </Link>
       </nav>
     </>
