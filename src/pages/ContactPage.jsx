@@ -2,10 +2,23 @@
  * pages/ContactPage.jsx
  * Matches gearpointcrm.com/Contact-Us-GearPoint-Solutions
  * Form: First Name, Last Name, Email, Phone, Request Type, Message
+ *
+ * Email routing: FormSubmit.co (https://formsubmit.co)
+ *   - No backend required — FormSubmit receives the POST and emails the
+ *     submission to the address encoded in the action URL.
+ *   - First submission triggers an activation email to that address;
+ *     click the link once and all future submissions land in the inbox.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { SITE_EMAIL, SITE_ADDRESS, REQUEST_TYPES } from '../constants/siteData';
 import './ContactPage.css';
+
+// ── FormSubmit endpoint ──────────────────────────────────────────────────────
+// Replace the email below with the inbox that should receive submissions.
+// After the very first form submission FormSubmit will send an activation
+// email to this address — click "Activate Form" to start receiving messages.
+const FORMSUBMIT_EMAIL = 'toffice931@gmail.com' // e.g. 'contact@gearpointcrm.com'
 
 const INITIAL_STATE = {
   firstName:   '',
@@ -17,9 +30,17 @@ const INITIAL_STATE = {
 };
 
 const ContactPage = () => {
-  const [form, setForm]         = useState(INITIAL_STATE);
-  const [errors, setErrors]     = useState({});
+  const [form, setForm]           = useState(INITIAL_STATE);
+  const [errors, setErrors]       = useState({});
   const [submitted, setSubmitted] = useState(false);
+
+  // Detect the ?success=true redirect that FormSubmit sends back after delivery
+  const { search } = useLocation();
+  useEffect(() => {
+    if (new URLSearchParams(search).get('success') === 'true') {
+      setSubmitted(true);
+    }
+  }, [search]);
 
   const validate = () => {
     const e = {};
@@ -39,15 +60,14 @@ const ContactPage = () => {
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
   };
 
+  // Client-side validation gate — if it passes, let the form POST natively
   const handleSubmit = e => {
-    e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length) {
+      e.preventDefault();   // block only when there are errors
       setErrors(errs);
-      return;
     }
-    // In a real app this would POST to a backend / Squarespace form endpoint
-    setSubmitted(true);
+    // No preventDefault() on success → native POST goes to FormSubmit
   };
 
   return (
@@ -82,7 +102,21 @@ const ContactPage = () => {
                   </p>
                 </div>
               ) : (
-                <form className="contact-form" onSubmit={handleSubmit} noValidate>
+                <form
+                  className="contact-form"
+                  action={`https://formsubmit.co/${FORMSUBMIT_EMAIL}`}
+                  method="POST"
+                  onSubmit={handleSubmit}
+                >
+                  {/* ── FormSubmit hidden configuration fields ── */}
+                  {/* Email subject line */}
+                  <input type="hidden" name="_subject" value="New Contact Request — GearPoint Solutions" />
+                  {/* Pretty email template */}
+                  <input type="hidden" name="_template" value="table" />
+                  {/* Disable FormSubmit's own captcha (we rely on our validation) */}
+                  <input type="hidden" name="_captcha" value="false" />
+                  {/* Redirect back to /contact?success=true after submission */}
+                  <input type="hidden" name="_next" value={`${window.location.origin}/contact?success=true`} />
 
                   {/* Name Row */}
                   <div className="form-row">
