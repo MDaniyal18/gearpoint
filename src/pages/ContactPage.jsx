@@ -8,8 +8,15 @@
  *     submission to the address encoded in the action URL.
  *   - First submission triggers an activation email to that address;
  *     click the link once and all future submissions land in the inbox.
+ *
+ * CAPTCHA: Google reCAPTCHA v2 ("I am not a robot" checkbox)
+ *   - Uses a TEST site key that works on any domain (always passes).
+ *   - For production replace RECAPTCHA_SITE_KEY with your real key from:
+ *     https://www.google.com/recaptcha/admin/create
+ *     (Choose: reCAPTCHA v2 → "I'm not a robot" checkbox)
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { useLocation } from 'react-router-dom';
 import { SITE_EMAIL, SITE_ADDRESS, REQUEST_TYPES } from '../constants/siteData';
 import './ContactPage.css';
@@ -18,7 +25,13 @@ import './ContactPage.css';
 // Replace the email below with the inbox that should receive submissions.
 // After the very first form submission FormSubmit will send an activation
 // email to this address — click "Activate Form" to start receiving messages.
-const FORMSUBMIT_EMAIL = 'toffice931@gmail.com' // e.g. 'contact@gearpointcrm.com'
+const FORMSUBMIT_EMAIL = 'toffice931@gmail.com'; // e.g. 'contact@gearpointcrm.com'
+
+// ── reCAPTCHA site key ───────────────────────────────────────────────────────
+// This is Google's PUBLIC TEST key — it works on any domain and always passes.
+// Replace it with your real key before going to production:
+//   https://www.google.com/recaptcha/admin/create
+const RECAPTCHA_SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
 
 const INITIAL_STATE = {
   firstName:   '',
@@ -30,9 +43,12 @@ const INITIAL_STATE = {
 };
 
 const ContactPage = () => {
-  const [form, setForm]           = useState(INITIAL_STATE);
-  const [errors, setErrors]       = useState({});
-  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm]             = useState(INITIAL_STATE);
+  const [errors, setErrors]         = useState({});
+  const [submitted, setSubmitted]   = useState(false);
+  const [captchaToken, setCaptchaToken] = useState(null); // set when user ticks the box
+  const [captchaError, setCaptchaError] = useState('');   // shown if they try to skip it
+  const recaptchaRef = useRef(null);
 
   // Detect the ?success=true redirect that FormSubmit sends back after delivery
   const { search } = useLocation();
@@ -63,11 +79,20 @@ const ContactPage = () => {
   // Client-side validation gate — if it passes, let the form POST natively
   const handleSubmit = e => {
     const errs = validate();
-    if (Object.keys(errs).length) {
-      e.preventDefault();   // block only when there are errors
+    const hasCaptcha = !!captchaToken;
+
+    if (Object.keys(errs).length || !hasCaptcha) {
+      e.preventDefault(); // block the native POST
       setErrors(errs);
+      if (!hasCaptcha) {
+        setCaptchaError('Please confirm you are not a robot.');
+      }
+      // Reset the widget so the user can try again
+      recaptchaRef.current?.reset();
+      setCaptchaToken(null);
+      return;
     }
-    // No preventDefault() on success → native POST goes to FormSubmit
+    // All good → native POST fires, FormSubmit handles delivery
   };
 
   return (
@@ -226,6 +251,27 @@ const ContactPage = () => {
                       aria-invalid={!!errors.message}
                     />
                     {errors.message && <span className="text-primary" style={{ fontSize: 'var(--text-xs)' }}>{errors.message}</span>}
+                  </div>
+
+                  {/* ── reCAPTCHA v2 ── */}
+                  <div className="form-captcha">
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      sitekey={RECAPTCHA_SITE_KEY}
+                      onChange={token => {
+                        setCaptchaToken(token);
+                        if (token) setCaptchaError('');
+                      }}
+                      onExpired={() => {
+                        setCaptchaToken(null);
+                        setCaptchaError('CAPTCHA expired — please tick the box again.');
+                      }}
+                    />
+                    {captchaError && (
+                      <span className="text-primary" style={{ fontSize: 'var(--text-xs)' }}>
+                        {captchaError}
+                      </span>
+                    )}
                   </div>
 
                   {/* Submit */}
