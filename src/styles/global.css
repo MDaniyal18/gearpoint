@@ -114,3 +114,15 @@ input, textarea, select {
   white-space: nowrap;
   border: 0;
 }
+
+/* ─── Responsive Utilities ───────────────────────────────────── */
+@media (max-width: 768px) {
+  .section {
+    padding-top: var(--section-py-mob);
+    padding-bottom: var(--section-py-mob);
+  }
+  
+  .hide-mobile {
+    display: none !important;
+  }
+}

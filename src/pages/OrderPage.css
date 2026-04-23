@@ -33,3 +33,10 @@
   line-height: 1.8;
   margin-bottom: var(--space-8);
 }
+
+@media (max-width: 768px) {
+  .order-page {
+    padding-top: calc(var(--navbar-height) + var(--space-10));
+    padding-bottom: var(--space-10);
+  }
+}

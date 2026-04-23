@@ -90,6 +90,7 @@
   --container-pad: 1.5rem;
   --section-py:    5rem;
   --section-py-sm: 3.5rem;
+  --section-py-mob: 2.5rem;
 
   /* ─── Navbar ───────────────────────────────────────────────── */
   --navbar-height: 70px;

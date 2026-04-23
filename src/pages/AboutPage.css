@@ -68,3 +68,15 @@
   color: var(--color-heading);
   font-weight: 700;
 }
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .about-page-header {
+    padding-top: calc(var(--navbar-height) + var(--space-8));
+  }
+  
+  .about-content {
+    padding: var(--space-10) 0;
+    max-width: 100%;
+  }
+}

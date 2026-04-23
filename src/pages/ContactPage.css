@@ -171,7 +171,20 @@
 
 /* ─── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .contact-inner { grid-template-columns: 1fr; }
+  .contact-header {
+    padding-top: calc(var(--navbar-height) + var(--space-8));
+    padding-bottom: var(--space-8);
+  }
+  
+  .contact-body {
+    padding: var(--space-10) 0 var(--space-12);
+  }
+
+  .contact-inner { 
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+  }
+  
   .form-row { grid-template-columns: 1fr; }
   .contact-info { padding-top: 0; }
 }

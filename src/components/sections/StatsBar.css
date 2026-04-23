@@ -34,6 +34,11 @@
   opacity: 0.85;
 }
 
-@media (max-width: 700px) {
-  .stats-bar__grid { grid-template-columns: 1fr 1fr; }
+@media (max-width: 900px) {
+  .stats-bar__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .stats-bar__grid { grid-template-columns: 1fr; gap: var(--space-6); }
+  .stats-bar { padding: var(--space-10) 0; }
 }

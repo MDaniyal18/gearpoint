@@ -15,6 +15,13 @@
   margin-bottom: var(--space-4);
 }
 
+@media (max-width: 768px) {
+  .crm-header {
+    padding-top: calc(var(--navbar-height) + var(--space-8));
+    padding-bottom: var(--space-10);
+  }
+}
+
 .crm-header p {
   font-size: var(--text-lg);
   color: var(--color-text-muted);
