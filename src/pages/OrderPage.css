@@ -5,6 +5,7 @@
   min-height: calc(100vh - var(--navbar-height));
   padding-top: calc(var(--navbar-height) + var(--space-20));
   padding-bottom: var(--space-20);
+
   background-color: var(--color-bg-light);
 }
 
@@ -12,11 +13,12 @@
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
-  
+
 }
 
 .order-page__icon {
   font-size: 4rem;
+  
   margin-bottom: var(--space-6);
 }
 
