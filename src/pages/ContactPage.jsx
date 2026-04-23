@@ -3,22 +3,20 @@
  * Matches gearpointcrm.com/Contact-Us-GearPoint-Solutions
  * Form: First Name, Last Name, Email, Phone, Request Type, Message
  *
- * Email routing: FormSubmit.co (https://formsubmit.co)
- *   - No backend required — FormSubmit receives the POST and emails the
- *     submission to the address encoded in the action URL.
- *   - First submission triggers an activation email to that address;
- *     click the link once and all future submissions land in the inbox.
+ * Email routing: Web3Forms (https://web3forms.com)
+ *   - No backend required — submissions are sent to your inbox via Web3Forms API.
+ *   - Setup: go to https://web3forms.com, enter your email, copy the Access Key,
+ *     and paste it into WEB3FORMS_KEY below. No activation click needed.
  */
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
 import { SITE_EMAIL, SITE_ADDRESS, REQUEST_TYPES } from '../constants/siteData';
 import './ContactPage.css';
 
-// ── FormSubmit endpoint ──────────────────────────────────────────────────────
-// Replace the email below with the inbox that should receive submissions.
-// After the very first form submission FormSubmit will send an activation
-// email to this address — click "Activate Form" to start receiving messages.
-const FORMSUBMIT_EMAIL = 'toffice931@gmail.com' // e.g. 'contact@gearpointcrm.com'
+// ── Web3Forms Access Key ─────────────────────────────────────────────────────
+// 1. Visit https://web3forms.com
+// 2. Enter the inbox email (e.g. toffice931@gmail.com)
+// 3. Copy the generated Access Key and paste it here.
+const WEB3FORMS_KEY = 'YOUR_ACCESS_KEY_HERE';
 
 const INITIAL_STATE = {
   firstName:   '',
@@ -33,14 +31,7 @@ const ContactPage = () => {
   const [form, setForm]           = useState(INITIAL_STATE);
   const [errors, setErrors]       = useState({});
   const [submitted, setSubmitted] = useState(false);
-
-  // Detect the ?success=true redirect that FormSubmit sends back after delivery
-  const { search } = useLocation();
-  useEffect(() => {
-    if (new URLSearchParams(search).get('success') === 'true') {
-      setSubmitted(true);
-    }
-  }, [search]);
+  const [sending, setSending]     = useState(false);
 
   const validate = () => {
     const e = {};
@@ -60,14 +51,39 @@ const ContactPage = () => {
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
   };
 
-  // Client-side validation gate — if it passes, let the form POST natively
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
+    e.preventDefault();
     const errs = validate();
-    if (Object.keys(errs).length) {
-      e.preventDefault();   // block only when there are errors
-      setErrors(errs);
+    if (Object.keys(errs).length) { setErrors(errs); return; }
+
+    setSending(true);
+    try {
+      const payload = {
+        access_key: WEB3FORMS_KEY,
+        subject:    'New Contact Request — GearPoint Solutions',
+        name:       `${form.firstName} ${form.lastName}`,
+        email:      form.email,
+        phone:      form.phone,
+        request_type: form.requestType,
+        message:    form.message,
+      };
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body:    JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSubmitted(true);
+        setForm(INITIAL_STATE);
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    } catch {
+      alert('Network error. Please check your connection and try again.');
+    } finally {
+      setSending(false);
     }
-    // No preventDefault() on success → native POST goes to FormSubmit
   };
 
   return (
@@ -104,19 +120,9 @@ const ContactPage = () => {
               ) : (
                 <form
                   className="contact-form"
-                  action={`https://formsubmit.co/${FORMSUBMIT_EMAIL}`}
-                  method="POST"
                   onSubmit={handleSubmit}
+                  noValidate
                 >
-                  {/* ── FormSubmit hidden configuration fields ── */}
-                  {/* Email subject line */}
-                  <input type="hidden" name="_subject" value="New Contact Request — GearPoint Solutions" />
-                  {/* Pretty email template */}
-                  <input type="hidden" name="_template" value="table" />
-                  {/* Disable FormSubmit's own captcha (we rely on our validation) */}
-                  <input type="hidden" name="_captcha" value="false" />
-                  {/* Redirect back to /contact?success=true after submission */}
-                  <input type="hidden" name="_next" value={`${window.location.origin}/contact?success=true`} />
 
                   {/* Name Row */}
                   <div className="form-row">
@@ -230,8 +236,12 @@ const ContactPage = () => {
 
                   {/* Submit */}
                   <div className="form-submit">
-                    <button type="submit" className="btn btn--primary btn--lg">
-                      Submit
+                    <button
+                      type="submit"
+                      className="btn btn--primary btn--lg"
+                      disabled={sending}
+                    >
+                      {sending ? 'Sending…' : 'Submit'}
                     </button>
                   </div>
 
