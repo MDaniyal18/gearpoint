@@ -178,17 +178,24 @@
   }
 }
 
-@media (max-width: 400px) {
-  .hero {
-    padding-top: calc(var(--navbar-height) + var(--space-4));
-  }
-  
+@media (max-width: 600px) {
   .hero__actions {
     flex-direction: column;
   }
   
-  .hero__actions .btn {
+  .hero__actions .btn,
+  .about-banner__content .btn,
+  .home-cta .btn {
+    white-space: normal;
+    text-align: center;
+    justify-content: center;
     width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero {
+    padding-top: calc(var(--navbar-height) + var(--space-4));
   }
 }
 
