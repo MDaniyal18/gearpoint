@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useScrolled } from '../../hooks/useScrolled';
 import { NAV_LINKS } from '../../constants/siteData';
+import {logo_nav} from '../../assets/Images/Logos/logo-nav.png';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -30,13 +31,7 @@ const Navbar = () => {
         <div className="container navbar__inner">
           {/* Logo */}
           <Link to="/" className="navbar__logo" onClick={close}>
-            <div className="navbar__logo-icon">G</div>
-            <div>
-              <span className="navbar__logo-text">
-                Gear<span>Point</span> Solutions
-              </span>
-              <span className="navbar__logo-sub">Technology for Non-Profits</span>
-            </div>
+            <img src={logo_nav} alt="GearPoint Solutions" className="navbar__logo-img" />
           </Link>
 
           {/* Desktop nav */}
@@ -83,9 +78,7 @@ const Navbar = () => {
       {/* Mobile menu */}
       <nav className={`navbar__mobile${open ? ' open' : ''}`} aria-label="Mobile navigation">
         <div className="navbar__mobile-header" style={{ marginBottom: 'var(--space-8)' }}>
-          <span className="navbar__logo-text" style={{ fontSize: 'var(--text-xl)' }}>
-            Gear<span>Point</span>
-          </span>
+          <img src={logo-nav} alt="GearPoint Solutions" className="navbar__logo-img" />
         </div>
         {NAV_LINKS.map(link => (
           <NavLink

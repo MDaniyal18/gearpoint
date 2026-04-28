@@ -4,6 +4,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SITE_NAME, SITE_EMAIL, SITE_PHONE, SITE_ADDRESS, FOOTER_LINKS, ABOUT } from '../../constants/siteData';
+import logo_footer from '../../assets/Images/Logos/logo-no-background.png';
 import './Footer.css';
 
 const Footer = () => (
@@ -15,11 +16,7 @@ const Footer = () => (
           {/* Brand */}
           <div className="footer__brand">
             <Link to="/" className="footer__logo">
-              <div className="footer__logo-icon">G</div>
-              <div>
-                <span className="footer__logo-text">Gear<span>Point</span> Solutions</span>
-                <span className="footer__logo-sub">Technology for Non-Profits</span>
-              </div>
+              <img src={logo_footer} alt="GearPoint Solutions" className="footer__logo-img" />
             </Link>
             <p className="footer__tagline">{ABOUT.footerBlurb}</p>
             <div className="footer__social">
