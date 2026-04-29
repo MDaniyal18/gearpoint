@@ -39,10 +39,13 @@
 }
 
 .navbar__logo-img {
-  height: 48px;
+  height: 60px;
   width: auto;
   object-fit: contain;
   display: block;
+  transform: scale(1.3);
+  transform-origin: left center;
+  margin-top: 15px;
 }
 
 /* Desktop nav links */

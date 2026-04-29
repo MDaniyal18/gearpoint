@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useScrolled } from '../../hooks/useScrolled';
 import { NAV_LINKS } from '../../constants/siteData';
-import logo_nav from '../../assets/Images/Logos/logo-nav.png';
+import logo_nav from '../../assets/Images/Logos/logo-nav-edited.png';
 import './Navbar.css';
 
 const Navbar = () => {

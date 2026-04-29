@@ -4,7 +4,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SITE_NAME, SITE_EMAIL, SITE_PHONE, SITE_ADDRESS, FOOTER_LINKS, ABOUT } from '../../constants/siteData';
-import logo_footer from '../../assets/Images/Logos/logo-no-background.png';
+import logo_footer from '../../assets/Images/Logos/logo-footer-edited.png';
 import './Footer.css';
 
 const Footer = () => (
