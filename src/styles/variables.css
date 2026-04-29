@@ -8,10 +8,15 @@
 
 /* ─── Brand Colors ─────────────────────────────────────────── */
 :root {
-  /* Primary — GearPoint purple */
-  --color-primary:        #6F20AC;
-  --color-primary-hover:  #5a178d;
-  --color-primary-light:  #f0e6f9;
+  /* Primary — GearPoint purple (commented out per request) */
+  /* --color-primary:        #6F20AC; */
+  /* --color-primary-hover:  #5a178d; */
+  /* --color-primary-light:  #f0e6f9; */
+
+  /* Primary — Greenish shade */
+  --color-primary:        #059669;
+  --color-primary-hover:  #047857;
+  --color-primary-light:  #d1fae5;
 
   /* Secondary — sky blue header/banner */
   --color-secondary:      #5bb8e8;
