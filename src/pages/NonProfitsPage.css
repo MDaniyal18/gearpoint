@@ -1,57 +1,51 @@
 /*
- * pages/CrmPage.css
+ * pages/NonProfitsPage.css
  */
 
-.crm-header {
+.nonprofits-header {
   padding-top: calc(var(--navbar-height) + var(--space-12));
   padding-bottom: var(--space-12);
   text-align: center;
-  background: linear-gradient(135deg, var(--color-bg-light) 0%, #ede6f7 100%);
+  background: linear-gradient(135deg, var(--color-bg-light) 0%, #e6f0fa 100%);
 }
 
-.crm-header h1 {
+.nonprofits-header h1 {
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
   margin-bottom: var(--space-4);
 }
 
 @media (max-width: 768px) {
-  .crm-header {
+  .nonprofits-header {
     padding-top: calc(var(--navbar-height) + var(--space-8));
     padding-bottom: var(--space-10);
   }
 }
 
-.crm-header p {
-  font-size: var(--text-lg);
-  color: var(--color-text-muted);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.crm-body {
+.nonprofits-body {
   background-color: var(--color-bg);
 }
 
-.crm-intro {
+.nonprofits-intro {
   max-width: 720px;
   margin: 0 auto var(--space-16);
   text-align: center;
 }
 
-.crm-intro p {
+.nonprofits-intro p {
   font-size: var(--text-lg);
   color: var(--color-text-muted);
   line-height: 1.8;
+  margin-bottom: 1rem;
 }
 
-.crm-features-grid {
+.nonprofits-features-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-8);
 }
 
-.crm-feature-card {
+.nonprofits-feature-card {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -67,29 +61,29 @@
 }
 
 /* Beautiful top border highlight */
-.crm-feature-card::before {
+.nonprofits-feature-card::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-primary));
   opacity: 0;
   transition: var(--transition-base);
 }
 
-.crm-feature-card:hover {
+.nonprofits-feature-card:hover {
   box-shadow: var(--shadow-xl);
   transform: translateY(-5px);
   border-color: transparent;
 }
 
-.crm-feature-card:hover::before {
+.nonprofits-feature-card:hover::before {
   opacity: 1;
 }
 
-.crm-feature-card__icon {
+.nonprofits-feature-card__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -104,24 +98,24 @@
   transition: var(--transition-base);
 }
 
-.crm-feature-card:hover .crm-feature-card__icon {
-  transform: scale(1.05) rotate(5deg);
+.nonprofits-feature-card:hover .nonprofits-feature-card__icon {
+  transform: scale(1.05) rotate(-5deg);
 }
 
-.crm-feature-card h3 {
+.nonprofits-feature-card h3 {
   font-size: var(--text-xl);
   font-weight: 700;
   margin-bottom: var(--space-3);
   color: var(--color-heading);
 }
 
-.crm-feature-card p {
+.nonprofits-feature-card p {
   font-size: var(--text-base);
   color: var(--color-text-muted);
   line-height: 1.7;
 }
 
-.crm-feature-card__content {
+.nonprofits-feature-card__content {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -144,7 +138,7 @@
   color: var(--color-primary-hover);
 }
 
-.crm-cta {
+.nonprofits-cta {
   text-align: center;
   margin-top: var(--space-16);
   padding: var(--space-12) var(--space-8);
@@ -152,16 +146,13 @@
   border-radius: var(--radius-xl);
 }
 
-.crm-cta h2 { margin-bottom: var(--space-4); }
-.crm-cta p {
+.nonprofits-cta h2 { margin-bottom: var(--space-4); }
+.nonprofits-cta p {
   color: var(--color-text-muted);
   max-width: 500px;
   margin: 0 auto var(--space-8);
 }
 
 @media (max-width: 768px) {
-  .crm-features-grid { grid-template-columns: 1fr; }
-}
-@media (min-width: 600px) and (max-width: 900px) {
-  .crm-features-grid { grid-template-columns: 1fr 1fr; }
+  .nonprofits-features-grid { grid-template-columns: 1fr; }
 }

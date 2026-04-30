@@ -9,11 +9,13 @@ const ServiceCard = ({ icon, title, description, features }) => (
     <div className="service-card__icon" aria-hidden="true">{icon}</div>
     <h3 className="service-card__title">{title}</h3>
     <p className="service-card__description">{description}</p>
-    <ul className="service-card__list">
-      {features.map((feature, i) => (
-        <li key={i}>{feature}</li>
-      ))}
-    </ul>
+    {features && features.length > 0 && (
+      <ul className="service-card__list">
+        {features.map((feature, i) => (
+          <li key={i}>{feature}</li>
+        ))}
+      </ul>
+    )}
   </div>
 );
 

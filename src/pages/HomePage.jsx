@@ -6,7 +6,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ServiceCard from '../components/sections/ServiceCard';
 import StatsBar    from '../components/sections/StatsBar';
-import { HERO, ABOUT, SERVICES, SITE_EMAIL } from '../constants/siteData';
+import { HERO, ABOUT, AREAS_OF_PRACTICE, SITE_EMAIL } from '../constants/siteData';
 import './HomePage.css';
 
 /* ─── Hero ───────────────────────────────────────────────────── */
@@ -69,12 +69,12 @@ const AboutSection = () => (
   </section>
 );
 
-/* ─── Services ────────────────────────────────────────────────── */
-const ServicesSection = () => (
-  <section id="services" className="section services" aria-label="Our Services">
+/* ─── Areas of Practice ─────────────────────────────────────────── */
+const AreasOfPracticeSection = () => (
+  <section id="services" className="section services" aria-label="Areas of Practice">
     <div className="container">
       <div className="section-header">
-        <span className="badge badge--primary">What We Offer</span>
+        <span className="badge badge--primary">Areas of Practice</span>
         <h2>Professional Services Tailored to Your Mission</h2>
         <p>
           We bring efficient, state-of-the-art process and technology solutions
@@ -82,7 +82,7 @@ const ServicesSection = () => (
         </p>
       </div>
       <div className="services__grid">
-        {SERVICES.map(service => (
+        {AREAS_OF_PRACTICE.map(service => (
           <ServiceCard key={service.id} {...service} />
         ))}
       </div>
@@ -111,7 +111,7 @@ const HomePage = () => (
     <HeroSection />
     <StatsBar />
     <AboutSection />
-    <ServicesSection />
+    <AreasOfPracticeSection />
     <CTASection />
   </main>
 );

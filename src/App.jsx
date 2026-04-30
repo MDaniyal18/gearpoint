@@ -14,6 +14,7 @@ import Navbar      from './components/layout/Navbar';
 import Footer      from './components/layout/Footer';
 import HomePage    from './pages/HomePage';
 import CrmPage     from './pages/CrmPage';
+import NonProfitsPage from './pages/NonProfitsPage';
 import ContactPage from './pages/ContactPage';
 import OrderPage   from './pages/OrderPage';
 import AboutPage   from './pages/AboutPage';
@@ -30,11 +31,12 @@ const App = () => (
     <ScrollToTop />
     <Navbar />
     <Routes>
-      <Route path="/"        element={<HomePage    />} />
-      <Route path="/crm"     element={<CrmPage     />} />
-      <Route path="/contact" element={<ContactPage />} />
-      <Route path="/order"   element={<OrderPage   />} />
-      <Route path="/about"   element={<AboutPage   />} />
+      <Route path="/"            element={<HomePage       />} />
+      <Route path="/crm"         element={<CrmPage        />} />
+      <Route path="/non-profits" element={<NonProfitsPage />} />
+      <Route path="/contact"     element={<ContactPage    />} />
+      <Route path="/order"       element={<OrderPage      />} />
+      <Route path="/about"       element={<AboutPage      />} />
       {/* 404 fallback */}
       <Route path="*" element={<HomePage />} />
     </Routes>

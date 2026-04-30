@@ -2,10 +2,52 @@
  * pages/CrmPage.jsx
  * Salesforce / CRM page linked from the nav "CRM" item
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CRM } from '../constants/siteData';
+import { CRM_CONTENT } from '../constants/siteData';
 import './CrmPage.css';
+
+const CrmFeatureCard = ({ section }) => {
+  const [expanded, setExpanded] = useState(false);
+  const maxLength = 150;
+  
+  let displayText = section.body;
+  let isTruncated = false;
+  
+  if (!expanded && section.body.length > maxLength) {
+    const lastSpace = section.body.lastIndexOf(' ', maxLength);
+    const cutText = section.body.substring(0, lastSpace > 0 ? lastSpace : maxLength);
+    displayText = cutText + '...';
+    isTruncated = true;
+  }
+
+  return (
+    <div className="crm-feature-card">
+      {section.icon && <div className="crm-feature-card__icon">{section.icon}</div>}
+      <h3>{section.title}</h3>
+      {section.subtitle && (
+        <p className="crm-feature-card__subtitle" style={{ fontWeight: '600', marginBottom: '0.5rem', color: 'var(--color-primary)' }}>
+          {section.subtitle}
+        </p>
+      )}
+      <div className="crm-feature-card__content">
+        <p>
+          {displayText}
+          {isTruncated && (
+            <button className="read-more-btn" onClick={() => setExpanded(true)}>
+              Read more
+            </button>
+          )}
+          {expanded && section.body.length > maxLength && (
+            <button className="read-more-btn" onClick={() => setExpanded(false)}>
+              Show less
+            </button>
+          )}
+        </p>
+      </div>
+    </div>
+  );
+};
 
 const CrmPage = () => (
   <>
@@ -15,8 +57,7 @@ const CrmPage = () => (
         <span className="badge badge--primary" style={{ marginBottom: '1rem' }}>
           Salesforce & Intuit
         </span>
-        <h1>{CRM.heading}</h1>
-        <p>{CRM.subheading}</p>
+        <h1>{CRM_CONTENT.heading}</h1>
       </div>
     </div>
 
@@ -26,18 +67,18 @@ const CrmPage = () => (
 
         {/* Intro */}
         <div className="crm-intro">
-          {CRM.body.map((para, i) => <p key={i}>{para}</p>)}
+          <p>{CRM_CONTENT.intro}</p>
         </div>
 
-        {/* Feature Cards */}
+        {/* Sections */}
         <div className="crm-features-grid">
-          {CRM.features.map((f, i) => (
-            <div key={i} className="crm-feature-card">
-              <div className="crm-feature-card__icon">{f.icon}</div>
-              <h3>{f.title}</h3>
-              <p>{f.body}</p>
-            </div>
+          {CRM_CONTENT.sections.map((section, i) => (
+            <CrmFeatureCard key={i} section={section} />
           ))}
+        </div>
+
+        <div className="crm-intro" style={{ marginTop: '3rem' }}>
+          <p>{CRM_CONTENT.outro}</p>
         </div>
 
         {/* In-page CTA */}
