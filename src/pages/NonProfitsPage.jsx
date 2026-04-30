@@ -51,11 +51,22 @@ const NonProfitsPage = () => {
     <>
       {/* Header */}
       <div className="nonprofits-header">
-        <div className="container">
-          <span className="badge badge--primary" style={{ marginBottom: '1rem' }}>
-            For Small Businesses & Non-Profits
-          </span>
-          <h1>{NON_PROFITS_CONTENT.heading}</h1>
+        <div className="container nonprofits-header__inner">
+          <div className="nonprofits-header__content">
+            <span className="badge badge--primary" style={{ marginBottom: '1rem' }}>
+              For Small Businesses & Non-Profits
+            </span>
+            <h1>{NON_PROFITS_CONTENT.heading}</h1>
+            <p style={{ fontSize: 'var(--text-lg)', color: 'var(--color-text-muted)', maxWidth: '500px' }}>
+              We provide efficient, organized, and cost-effective foundation tools to support your community mission.
+            </p>
+          </div>
+          <div className="nonprofits-header__image animate-slide-right">
+            <img 
+              src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80" 
+              alt="Community Support and Charity" 
+            />
+          </div>
         </div>
       </div>
 

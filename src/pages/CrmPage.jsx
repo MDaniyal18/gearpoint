@@ -53,11 +53,22 @@ const CrmPage = () => (
   <>
     {/* Header */}
     <div className="crm-header">
-      <div className="container">
-        <span className="badge badge--primary" style={{ marginBottom: '1rem' }}>
-          Salesforce & Intuit
-        </span>
-        <h1>{CRM_CONTENT.heading}</h1>
+      <div className="container crm-header__inner">
+        <div className="crm-header__content">
+          <span className="badge badge--primary" style={{ marginBottom: '1rem' }}>
+            Salesforce & Intuit
+          </span>
+          <h1>{CRM_CONTENT.heading}</h1>
+          <p style={{ fontSize: 'var(--text-lg)', color: 'var(--color-text-muted)', maxWidth: '500px' }}>
+            Empower your organization with intelligent customer relationship management and actionable insights.
+          </p>
+        </div>
+        <div className="crm-header__image animate-slide-right">
+          <img 
+            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" 
+            alt="CRM Dashboard and Analytics" 
+          />
+        </div>
       </div>
     </div>
 
