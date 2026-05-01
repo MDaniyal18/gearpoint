@@ -21,9 +21,15 @@ const CrmFeatureCard = ({ section }) => {
     isTruncated = true;
   }
 
+  const Icon = section.icon;
+
   return (
     <div className="crm-feature-card">
-      {section.icon && <div className="crm-feature-card__icon">{section.icon}</div>}
+      {Icon && (
+        <div className="crm-feature-card__icon">
+          <Icon size={28} strokeWidth={2} />
+        </div>
+      )}
       <h3>{section.title}</h3>
       {section.subtitle && (
         <p className="crm-feature-card__subtitle" style={{ fontWeight: '600', marginBottom: '0.5rem', color: 'var(--color-primary)' }}>

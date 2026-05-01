@@ -4,9 +4,11 @@
 import React from 'react';
 import './ServiceCard.css';
 
-const ServiceCard = ({ icon, title, description, features }) => (
+const ServiceCard = ({ icon: Icon, title, description, features }) => (
   <div className="service-card animate-fade-up">
-    <div className="service-card__icon" aria-hidden="true">{icon}</div>
+    <div className="service-card__icon" aria-hidden="true">
+      {Icon && <Icon size={32} strokeWidth={1.5} />}
+    </div>
     <h3 className="service-card__title">{title}</h3>
     <p className="service-card__description">{description}</p>
     {features && features.length > 0 && (

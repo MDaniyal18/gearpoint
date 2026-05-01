@@ -21,9 +21,15 @@ const NonProfitsFeatureCard = ({ section }) => {
     isTruncated = true;
   }
 
+  const Icon = section.icon;
+
   return (
     <div className="nonprofits-feature-card">
-      {section.icon && <div className="nonprofits-feature-card__icon">{section.icon}</div>}
+      {Icon && (
+        <div className="nonprofits-feature-card__icon">
+          <Icon size={28} strokeWidth={2} />
+        </div>
+      )}
       <h3>{section.title}</h3>
       <div className="nonprofits-feature-card__content">
         <p>
